@@ -7,13 +7,15 @@ interface FormMenu {
   route: string
 }
 
+const client = '/src/assets/imgs/formMenu/icone-utilisateur.png'
+
 export const getButtonFormMenuConfig: FormMenu[] = [
   {
     id: '0',
     title: 'Client',
     description: 'Créer un client: entreprise, association, particulier',
     alt: 'formulaire client',
-    image: '/src/assets/imgs/formMenu/icone-utilisateur.png',
+    image: client,
     route: '/form/client',
   },
   {

@@ -339,7 +339,8 @@ const FormStep: FC = () => {
     })
   }, [getInput])
 
-  console.log('FormData:', { ...formData })
+  // console.log('FormData:', { ...formData })
+  console.log('token: ', token)
 
   return (
     <Form

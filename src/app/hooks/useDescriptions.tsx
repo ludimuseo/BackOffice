@@ -13,7 +13,7 @@ export const useDescriptions = (
   setCurrentStep?: Dispatch<SetStateAction<number>>,
   setMessage?: (message: { info: string; result: boolean }) => void
 ) => {
-  const [showDescription, setShowDescription] = useState(false)
+  const [showDescription, setShowDescription] = useState(true)
   const [descriptions, setDescriptions] = useState<DescriptionType[]>([
     {
       id: generateUniqueId(),

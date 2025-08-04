@@ -33,7 +33,8 @@ const FormPlace: FC = () => {
 
   const initialPlaceData: FormDataType = {
     clientID: 0,
-    coords: { latitude: 0, longitude: 0 },
+    lat: 0,
+    lon: 0,
     id: 0,
     medalId: 0,
     name: '',
@@ -44,8 +45,6 @@ const FormPlace: FC = () => {
     country: '',
     postal: '',
     location_required: false,
-    lat: 0,
-    lon: 0,
     isActive: false,
     isPublished: false,
   }

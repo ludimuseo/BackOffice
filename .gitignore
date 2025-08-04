@@ -32,6 +32,8 @@ dist-ssr
 
 .yarn
 
+*.sh
+
 # React Router
 .react-router
 build
