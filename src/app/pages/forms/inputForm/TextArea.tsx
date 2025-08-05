@@ -26,7 +26,6 @@ interface TextAreaType {
     | QuizType
     | QuestionType
   language?: string
-  rightSideVisible?: boolean
   handleInputChange: (name: string, event: string) => void
 }
 export default function TextArea({
@@ -36,20 +35,12 @@ export default function TextArea({
   placeholder,
   rows,
   formData,
-  rightSideVisible,
   handleInputChange,
 }: TextAreaType) {
   const value = formData[name as keyof typeof formData] as unknown as string
   return (
-    <div
-      className={
-        rightSideVisible
-          ? 'border-stroke shadow-defaul dark:bg-boxdark mt-1 flex w-1/3 flex-col rounded-lg border bg-sky-100 p-2'
-          : 'mt-2 flex w-1/2 flex-col'
-      }
-      key={id}>
+    <div className="mt-4 flex w-full flex-col" key={id}>
       <p className="mb-2 font-inclusive text-xl">{label}</p>
-
       <textarea
         key={id}
         id={id}

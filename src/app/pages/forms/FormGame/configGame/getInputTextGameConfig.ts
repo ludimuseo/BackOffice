@@ -53,15 +53,14 @@ export const getInputQuestionConfig: GetInputConfigType[][] = [
       id: '30',
       accessType: 'image/*',
       fileType: 'image',
-      label: 'Image du quiz',
+      label: 'Image',
       name: 'image',
       placeholder: 'Telecharger l image du jeu',
       required: false,
-      sectionLabel: 'Image du Quiz',
+      sectionLabel: 'Image & Audio',
       type: 'file',
     },
-  ],
-  [
+
     {
       id: '13',
       accessType: 'audio/*',
@@ -70,7 +69,7 @@ export const getInputQuestionConfig: GetInputConfigType[][] = [
       name: 'audio',
       placeholder: 'Telecharger l audio du quiz',
       required: false,
-      sectionLabel: 'Audio',
+      sectionLabel: 'Image & Audio',
       type: 'file',
     },
   ],
