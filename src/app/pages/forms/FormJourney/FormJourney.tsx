@@ -172,16 +172,13 @@ const FormJourney: FC = () => {
         return
       }
 
-      const response: Response = await fetchWithAuth(
-        'https://dev.ludimuseo.fr:4000/api/upload',
-        {
-          method: 'POST',
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-          body: formUpload, // Attention : pas de Content-Type ici, FormData le gère
-        }
-      )
+      const response: Response = await fetchWithAuth(`${API_BASE_URL}/upload`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: formUpload, // Attention : pas de Content-Type ici, FormData le gère
+      })
 
       if (!response.ok) {
         throw new Error(`Erreur serveur: ${response.status.toString()}`)
@@ -216,11 +213,12 @@ const FormJourney: FC = () => {
       }
     })
   }
+
   useEffect(() => {
     const fetchClients = async () => {
       try {
         const response: Response = await fetchWithAuth(
-          `https://dev.ludimuseo.fr:4000/api/clients/list`,
+          `${API_BASE_URL}/clients/list`,
           {
             method: 'GET',
             headers: {
@@ -251,7 +249,7 @@ const FormJourney: FC = () => {
       if (!selectedClientId) return
       try {
         const response: Response = await fetchWithAuth(
-          `https://dev.ludimuseo.fr:4000/api/places/list/${selectedClientId.toString()}`,
+          `${API_BASE_URL}/places/list/${selectedClientId.toString()}`,
           {
             method: 'GET',
             headers: {
@@ -279,7 +277,7 @@ const FormJourney: FC = () => {
     const fetchMedals = async () => {
       try {
         const response: Response = await fetchWithAuth(
-          `https://dev.ludimuseo.fr:4000/api/medals/list`,
+          `${API_BASE_URL}/medals/list`,
           {
             method: 'GET',
             headers: {

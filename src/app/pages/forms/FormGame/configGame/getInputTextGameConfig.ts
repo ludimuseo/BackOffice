@@ -26,28 +26,28 @@ export const getInputQuizConfig: GetInputConfigType[][] = [
 ]
 
 export const getInputQuestionConfig: GetInputConfigType[][] = [
-  [
-    {
-      id: '71',
-      label: 'Saisir la langue',
-      name: 'languageCode',
-      option: ['fr', 'en'],
-      placeholder: 'Entrez la langue',
-      required: true,
-      sectionLabel: 'Option langue & lecture',
-      translate: true,
-    },
-    {
-      id: '72',
-      label: 'Lecture Falc:',
-      name: 'isFalc',
-      placeholder: 'Cochez',
-      required: true,
-      sectionLabel: 'Lecture',
-      translate: true,
-      type: 'checkbox',
-    },
-  ],
+  //@[
+  //   {
+  //     id: '71',
+  //     label: 'Saisir la langue',
+  //     name: 'languageCode',
+  //     option: ['fr', 'en'],
+  //     placeholder: 'Entrez la langue',
+  //     required: true,
+  //     sectionLabel: 'Option langue & lecture',
+  //     translate: true,
+  //   },
+  //   {
+  //     id: '72',
+  //     label: 'Lecture Falc:',
+  //     name: 'isFalc',
+  //     placeholder: 'Cochez',
+  //     required: true,
+  //     sectionLabel: 'Lecture',
+  //     translate: true,
+  //     type: 'checkbox',
+  //   },
+  // ],
   [
     {
       id: '30',
@@ -63,9 +63,9 @@ export const getInputQuestionConfig: GetInputConfigType[][] = [
   ],
   [
     {
+      id: '13',
       accessType: 'audio/*',
       fileType: 'audio',
-      id: '13',
       label: 'Audio',
       name: 'audio',
       placeholder: 'Telecharger l audio du quiz',
@@ -131,7 +131,6 @@ export const getInputQuestionConfig: GetInputConfigType[][] = [
       name: 'explanationResponse2',
       placeholder: 'Entrez la réponse FAUSSE n°1',
       required: false,
-      rightSideVisible: true,
       rows: 10,
       sectionLabel: 'ExplicationFAUSSE n°1',
       translate: true,
@@ -158,7 +157,6 @@ export const getInputQuestionConfig: GetInputConfigType[][] = [
       name: 'explanationResponse3',
       placeholder: 'Entrez la réponse FAUSSE n°2',
       required: false,
-      rightSideVisible: true,
       rows: 10,
       sectionLabel: 'ExplicationFAUSSE n°2',
       translate: true,

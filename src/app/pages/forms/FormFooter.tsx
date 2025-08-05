@@ -34,35 +34,35 @@ const FormFooter = ({
   icon,
 }: FormFooterProps) => {
   const navigate = useNavigate()
+
   console.log('FORMFOOTER showDescription: ', showDescription)
+
   return (
     <div className="dark:border-strokedark dark:bg-boxdark mt-5 flex flex-col rounded-sm px-20">
       <div className="flex flex-row justify-center">
         {message.result ? (
-          <>
-            <button
-              className="mx-8 mb-8 mt-8 flex justify-center rounded-xl bg-blue-900 p-3 font-bold text-white hover:bg-opacity-100"
-              onClick={() => {
-                if (!showDescription && title !== 'Formulaire Client') {
-                  handleDescription?.()
-                } else {
-                  void navigate('/form')
-                }
-              }}>
-              {!showDescription && title !== 'Formulaire Client' ? (
-                icon && icon
-              ) : (
-                <></>
-              )}
-              {!showDescription && title !== 'Formulaire Client' ? (
-                <p className="ml-2 flex items-center font-inclusive text-xl">
-                  Ajouter les descriptions
-                </p>
-              ) : (
-                <p className="font-inclusive text-xl">Retour au Menu</p>
-              )}
-            </button>
-          </>
+          <button
+            className="mx-8 mb-8 mt-8 flex justify-center rounded-xl bg-blue-900 p-3 font-bold text-white hover:bg-opacity-100"
+            onClick={() => {
+              if (!showDescription && title !== 'Formulaire Client') {
+                handleDescription?.()
+              } else {
+                void navigate('/form')
+              }
+            }}>
+            {!showDescription && title !== 'Formulaire Client' ? (
+              icon && icon
+            ) : (
+              <></>
+            )}
+            {!showDescription && title !== 'Formulaire Client' ? (
+              <p className="ml-2 flex items-center font-inclusive text-xl">
+                Ajouter les descriptions
+              </p>
+            ) : (
+              <p className="font-inclusive text-xl">Retour au Menu</p>
+            )}
+          </button>
         ) : currentStep < step - 1 ? (
           <>
             {currentStep > 0 && (

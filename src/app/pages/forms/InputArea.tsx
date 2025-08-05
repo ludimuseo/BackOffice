@@ -227,9 +227,7 @@ const InputArea = ({
               )
             }
           })}
-          <div
-            //onSubmit={handleSubmit}
-            className="border-stroke shadow-defaul dark:border-strokedark dark:bg-boxdark flex w-1/2 flex-col p-2">
+          <div className="border-stroke shadow-defaul dark:border-strokedark dark:bg-boxdark flex w-1/2 flex-col p-2">
             {getInput[currentStep].map(
               ({
                 id,
@@ -241,129 +239,8 @@ const InputArea = ({
                 label,
                 option,
                 placeholder,
-                rightSideVisible,
               }) => {
-                if (!rightSideVisible) {
-                  if (rows) {
-                    return (
-                      <TextArea
-                        key={id}
-                        id={id}
-                        label={label}
-                        name={name}
-                        placeholder={placeholder}
-                        rows={rows}
-                        mode={mode}
-                        formData={formData}
-                        language={language}
-                        handleInputChange={handleInputChange}
-                      />
-                    )
-                  }
-
-                  if (type === 'checkbox') {
-                    const isChecked = formData[
-                      name as keyof typeof formData
-                    ] as unknown as boolean
-                    return (
-                      <div className="form-control mt-4 flex flex-row" key={id}>
-                        <label className="label cursor-pointer">
-                          <p className="label-text mr-5 font-inclusive text-lg">
-                            {label}
-                          </p>
-                          <input
-                            name={name}
-                            id={id}
-                            type={type}
-                            checked={isChecked}
-                            onChange={() => {
-                              handleInputChange(name, String(!isChecked))
-                            }}
-                            className="checkbox"
-                          />
-                        </label>
-                      </div>
-                    )
-                  }
-
-                  if (option) {
-                    return (
-                      <div className="mt-2 flex w-1/2 flex-col" key={id}>
-                        <p className="mb-2 font-inclusive text-xl">{label}</p>
-                        <select
-                          name={name}
-                          id={id}
-                          value={
-                            formData[
-                              name as keyof typeof formData
-                            ] as unknown as string
-                          }
-                          onChange={(e) => {
-                            handleInputChange(name, e.target.value)
-                          }}
-                          className="select select-bordered font-inclusive text-lg">
-                          {option.map((opt, index: number) => (
-                            <option key={index} value={opt}>
-                              {opt}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
-                    )
-                  }
-                  if (type == 'button') {
-                    return (
-                      <button
-                        key={id}
-                        className="xl:btn-xl btn btn-neutral btn-xs sm:btn-sm md:btn-md lg:btn-lg"
-                        onClick={(e) => {
-                          handleSubmitButton?.(e)
-                        }}>
-                        Enregistrer sur le serveur
-                      </button>
-                    )
-                  }
-                  if (type !== 'file' && !rows) {
-                    return (
-                      <div className="mt-2 flex w-1/2 flex-col" key={id}>
-                        <p className="mb-2 font-inclusive text-xl">{label}</p>
-                        <input
-                          key={id}
-                          id={id}
-                          name={name}
-                          className="input input-bordered"
-                          placeholder={placeholder}
-                          type={type}
-                          value={
-                            formData[
-                              name as keyof typeof formData
-                            ] as unknown as string
-                          }
-                          onChange={(e) => {
-                            handleInputChange(name, e.target.value)
-                          }}
-                          onKeyDown={(e) => {
-                            handleInputKeyDown(e)
-                          }}
-                        />
-                      </div>
-                    )
-                  }
-                }
-              }
-            )}
-            {getInput[currentStep].map(
-              ({
-                id,
-                rows,
-                language,
-                mode,
-                name,
-                label,
-                placeholder,
-                rightSideVisible,
-              }) => {
-                if (rows && rightSideVisible) {
+                if (rows) {
                   return (
                     <TextArea
                       key={id}
@@ -377,6 +254,95 @@ const InputArea = ({
                       language={language}
                       handleInputChange={handleInputChange}
                     />
+                  )
+                }
+
+                if (type === 'checkbox') {
+                  const isChecked = formData[
+                    name as keyof typeof formData
+                  ] as unknown as boolean
+                  return (
+                    <div className="form-control mt-4 flex flex-row" key={id}>
+                      <label className="label cursor-pointer">
+                        <p className="label-text mr-5 font-inclusive text-lg">
+                          {label}
+                        </p>
+                        <input
+                          name={name}
+                          id={id}
+                          type={type}
+                          checked={isChecked}
+                          onChange={() => {
+                            handleInputChange(name, String(!isChecked))
+                          }}
+                          className="checkbox"
+                        />
+                      </label>
+                    </div>
+                  )
+                }
+
+                if (option) {
+                  return (
+                    <div className="mt-2 flex w-1/2 flex-col" key={id}>
+                      <p className="mb-2 font-inclusive text-xl">{label}</p>
+                      <select
+                        name={name}
+                        id={id}
+                        value={
+                          formData[
+                            name as keyof typeof formData
+                          ] as unknown as string
+                        }
+                        onChange={(e) => {
+                          handleInputChange(name, e.target.value)
+                        }}
+                        className="select select-bordered font-inclusive text-lg">
+                        {option.map((opt, index: number) => (
+                          <option key={index} value={opt}>
+                            {opt}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  )
+                }
+                if (type == 'button') {
+                  return (
+                    <button
+                      key={id}
+                      className="xl:btn-xl btn btn-neutral btn-xs sm:btn-sm md:btn-md lg:btn-lg"
+                      onClick={(e) => {
+                        handleSubmitButton?.(e)
+                      }}>
+                      Enregistrer sur le serveur
+                    </button>
+                  )
+                }
+                if (type !== 'file' && !rows) {
+                  return (
+                    <div className="mt-2 flex w-1/2 flex-col" key={id}>
+                      <p className="mb-2 font-inclusive text-xl">{label}</p>
+                      <input
+                        key={id}
+                        id={id}
+                        name={name}
+                        className="input input-bordered"
+                        placeholder={placeholder}
+                        type={type}
+                        value={
+                          formData[
+                            name as keyof typeof formData
+                          ] as unknown as string
+                        }
+                        onChange={(e) => {
+                          handleInputChange(name, e.target.value)
+                        }}
+                        onKeyDown={(e) => {
+                          handleInputKeyDown(e)
+                        }}
+                      />
+                    </div>
                   )
                 }
               }

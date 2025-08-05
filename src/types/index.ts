@@ -81,6 +81,7 @@ export interface MessageType {
 
 /* FORMDATA */
 export interface FormDataType {
+  [key: string]: string | number | boolean
   id: number
   clientID: number
   medalId: number
@@ -96,7 +97,6 @@ export interface FormDataType {
   lon: number
   isActive: boolean
   isPublished: boolean
-  [key: string]: string | boolean | number
 }
 
 export type InputValue = string | boolean | number
@@ -114,8 +114,6 @@ export interface GetInputConfigType {
   placeholder?: string
   required: boolean
   rows?: number | undefined
-  rightSideVisible?: boolean | undefined
-  section?: string
   sectionLabel: string
   translate?: boolean
   type?: string
@@ -250,35 +248,6 @@ interface Explanation {
 interface Stage {
   stepNumber: number
 }
-
-/* CLIENT */
-export interface ClientTypeApi {
-  id?: number
-  name?: string
-  company: {
-    name: string
-    siret: string
-    tva: string
-    type: string
-    website: string
-  }
-  address: {
-    address: string
-    postal: string
-    city: string
-    country: string
-  }
-  contact: {
-    name: string
-    email: string
-    tel: string
-    note: string
-  }
-  status: {
-    isActive: boolean //ACTIVER/DESACTIVER LE CLIENT
-  }
-}
-
 export interface ClientType {
   [key: string]: string | number | boolean
   id: number
@@ -291,7 +260,6 @@ export interface ClientType {
   postal: string
   city: string
   country: string
-  contact: string
   email: string
   tel: string
   note: string

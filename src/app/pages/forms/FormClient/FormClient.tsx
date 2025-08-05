@@ -8,7 +8,7 @@ import { useFormMessage } from '@/app/hooks/useFormMessage'
 import { useInputChange } from '@/app/hooks/useInputChange'
 import { useTimelineStep } from '@/app/hooks/useTimelineStep'
 import { API_BASE_URL } from '@/config/config'
-import { ClientType, ClientTypeApi, State } from '@/types'
+import { ClientType, State } from '@/types'
 
 import Form from '../Form'
 import { getInputClientConfig } from './configClient/getInputClientConfig'
@@ -22,17 +22,16 @@ const FormClient: FC = () => {
     name: '',
     siret: '',
     tva: '',
-    type: 'ENTREPRISE', //par default
+    type: 'ENTREPRISE',
     website: '',
     address: '',
     postal: '',
     city: '',
     country: '',
-    contact: '',
     email: '',
     tel: '',
     note: '',
-    isActive: false,
+    isActive: true,
   }
 
   const { formData, handleInputChange } =
@@ -45,31 +44,6 @@ const FormClient: FC = () => {
 
   const handleArrowLeft = () => {
     void navigate(-1)
-  }
-  //structure des données pour l'api
-  const newClient: ClientTypeApi = {
-    address: {
-      address: formData.address,
-      city: formData.city,
-      country: formData.country,
-      postal: formData.postal,
-    },
-    company: {
-      name: formData.name,
-      siret: formData.siret,
-      tva: formData.tva,
-      type: formData.type,
-      website: formData.website,
-    },
-    contact: {
-      email: formData.email,
-      name: formData.contact,
-      note: formData.note,
-      tel: formData.tel,
-    },
-    status: {
-      isActive: true,
-    },
   }
 
   //soumission des informations FIREBASE
@@ -87,7 +61,7 @@ const FormClient: FC = () => {
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify(newClient),
+          body: JSON.stringify(formData),
         }
       )
 

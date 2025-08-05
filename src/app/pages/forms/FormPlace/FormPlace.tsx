@@ -33,12 +33,12 @@ const FormPlace: FC = () => {
 
   const initialPlaceData: FormDataType = {
     clientID: 0,
+    medalId: 0,
     lat: 0,
     lon: 0,
     id: 0,
-    medalId: 0,
     name: '',
-    image: 'image.png',
+    image: '',
     type: 'MUSEUM',
     address: '',
     city: '',

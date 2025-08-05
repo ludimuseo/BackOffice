@@ -31,7 +31,7 @@ interface FormProps {
   place?: PlaceType[]
   journey?: JourneyType[]
   stepData?: StepType[]
-  isAssociated?: boolean
+  isAssociated?: boolean //id associé au formulaire en creation
   newIdFromApi?: number
   selectedClientId?: number
   selectedPlaceId?: number
@@ -120,7 +120,7 @@ const Form = ({
   handleSubmitQuestion,
 }: FormProps) => {
   return (
-    <div className="grid grid-cols-1 gap-2 p-10 sm:grid-cols-1">
+    <div className="grid grid-cols-1 gap-2 p-14 sm:grid-cols-1">
       <FormHeader title={title} icon={icon} handleSubmit={handleArrowLeft} />
       <MedalDropdownList
         title={title}
@@ -150,6 +150,8 @@ const Form = ({
         steps={stepData}
       />
 
+      {/* Timeline */}
+
       {isAssociated ||
       title === 'Formulaire Client' ||
       title === 'Formulaire Médaille' ? (
@@ -162,6 +164,8 @@ const Form = ({
       ) : (
         <></>
       )}
+
+      {/* InputArea */}
 
       {isAssociated ||
       title === 'Formulaire Client' ||
@@ -197,6 +201,9 @@ const Form = ({
       ) : (
         <></>
       )}
+
+      {/* FormFooter */}
+
       {isAssociated ||
       title === 'Formulaire Client' ||
       title === 'Formulaire Médaille' ? (
@@ -222,7 +229,6 @@ const Form = ({
                 viewBox="0 0 24 24"
                 xmlns="http://www.w3.org/2000/svg">
                 <circle cx="12" cy="12" r="10" fill="#4285F4" />
-
                 <path
                   d="M12 6L14 10H18L15 13L17 17L12 15L7 17L9 13L6 10H10L12 6Z"
                   fill="white"

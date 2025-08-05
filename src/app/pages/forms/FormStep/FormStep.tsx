@@ -12,6 +12,7 @@ import { API_BASE_URL } from '@/config/config'
 import {
   ClientType,
   JourneyType,
+  MedalType,
   MessageType,
   PlaceType,
   State,
@@ -29,6 +30,7 @@ const FormStep: FC = () => {
   const [client, setClient] = useState<ClientType[]>([])
   const [place, setPlace] = useState<PlaceType[]>([])
   const [journey, setJourney] = useState<JourneyType[]>([])
+  const [medal, setMedal] = useState<MedalType[]>([])
   const [showDescription, setShowDescription] = useState(false)
   const [newIdFromApi, setNewIdFromApi] = useState<number>()
   const [selectedClientId, setSelectedClientId] = useState<number>()
@@ -44,7 +46,7 @@ const FormStep: FC = () => {
     journeyId: 0,
     medalId: 0,
     name: '',
-    image: 'image.png',
+    image: '',
     address: '',
     city: '',
     country: '',
@@ -65,6 +67,7 @@ const FormStep: FC = () => {
     handleNextStep,
     handlePrevStep,
   } = useTimelineStep()
+
   const getInput = !showDescription ? getInputStepConfig : getDescriptionConfig
 
   const handleArrowLeft = () => {
@@ -114,8 +117,6 @@ const FormStep: FC = () => {
       }
       const newId: number = (await response.json()) as number
       setNewIdFromApi(newId) // recupere l'Id du nouveau place créé
-
-      console.log('newId from Server', newId)
     } catch (error) {
       console.error('Erreur:', error)
       setMessage({
@@ -150,6 +151,16 @@ const FormStep: FC = () => {
     setSelectedPlaceId(selectedValueToNumber)
   }
 
+  const handleSelectMedal = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedValue = e.target.value
+    const selectedValueToNumber = Number(selectedValue)
+    setFormData((prevFormData) => {
+      return {
+        ...prevFormData,
+        ['medalId']: selectedValueToNumber,
+      }
+    })
+  }
   const handleSelectJourney = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedValue = e.target.value
     const selectedValueToNumber = Number(selectedValue)
@@ -183,16 +194,13 @@ const FormStep: FC = () => {
     })
 
     try {
-      const response: Response = await fetchWithAuth(
-        'https://dev.ludimuseo.fr:4000/api/upload',
-        {
-          method: 'POST',
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-          body: formUpload, // Attention : pas de Content-Type ici, FormData le gère
-        }
-      )
+      const response: Response = await fetchWithAuth(`${API_BASE_URL}/upload`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: formUpload, // Attention : pas de Content-Type ici, FormData le gère
+      })
 
       if (!response.ok) {
         throw new Error(`Erreur serveur: ${response.status.toString()}`)
@@ -209,7 +217,7 @@ const FormStep: FC = () => {
     const fetchClients = async () => {
       try {
         const response: Response = await fetchWithAuth(
-          `https://dev.ludimuseo.fr:4000/api/clients/list`,
+          `${API_BASE_URL}/clients/list`,
           {
             method: 'GET',
             headers: {
@@ -332,6 +340,32 @@ const FormStep: FC = () => {
   }, [selectedJourneyId])
 
   useEffect(() => {
+    const fetchMedals = async () => {
+      try {
+        const response: Response = await fetchWithAuth(
+          `${API_BASE_URL}/medals/list`,
+          {
+            method: 'GET',
+            headers: {
+              'Authorization': `Bearer ${token}`,
+              'Content-Type': 'application/json',
+            },
+          }
+        )
+        if (!response.ok) {
+          throw new Error(`Erreur HTTP: ${String(response.status)}`)
+        }
+        const data = (await response.json()) as MedalType[]
+        const medalData = data
+        setMedal(medalData)
+      } catch (error) {
+        console.log('ERROR fetching clients: ', error)
+      }
+    }
+    void fetchMedals()
+  }, [])
+
+  useEffect(() => {
     setStep(getInput.length)
     setMessage({
       info: '',
@@ -347,6 +381,7 @@ const FormStep: FC = () => {
       client={client}
       place={place}
       journey={journey}
+      medal={medal}
       isAssociated={formData.journeyId !== 0}
       selectedClientId={selectedClientId}
       selectedPlaceId={selectedPlaceId}
@@ -354,6 +389,7 @@ const FormStep: FC = () => {
       handleSelectClient={handleSelectClient}
       handleSelectPlace={handleSelectPlace}
       handleSelectJourney={handleSelectJourney}
+      handleSelectMedal={handleSelectMedal}
       title={title}
       collection={collection}
       icon={<></>}

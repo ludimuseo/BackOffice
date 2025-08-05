@@ -9,9 +9,11 @@ import { getDescriptionConfig } from '@/app/components/description/getDescriptio
 import { useAppSelector } from '@/app/hooks'
 import { useTimelineStep } from '@/app/hooks/useTimelineStep'
 import { StateAuth } from '@/app/services/redux/slices/reducerAuth'
+import { API_BASE_URL } from '@/config/config'
 import {
   ClientType,
   JourneyType,
+  MedalType,
   MessageType,
   PieceType,
   PlaceType,
@@ -35,6 +37,7 @@ const FormPiece: FC = () => {
   const [place, setPlace] = useState<PlaceType[]>([])
   const [journey, setJourney] = useState<JourneyType[]>([])
   const [steps, setSteps] = useState<StepType[]>([])
+  const [medal, setMedal] = useState<MedalType[]>([])
   const [showDescription, setShowDescription] = useState(false)
   const [selectedClientId, setSelectedClientId] = useState<number>()
   const [selectedPlaceId, setSelectedPlaceId] = useState<number>()
@@ -103,7 +106,7 @@ const FormPiece: FC = () => {
 
     try {
       const response: Response = await fetchWithAuth(
-        `https://dev.ludimuseo.fr:4000/api/piece/create`,
+        `${API_BASE_URL}/piece/create`,
         {
           method: 'POST',
           headers: {
@@ -163,16 +166,13 @@ const FormPiece: FC = () => {
     })
 
     try {
-      const response: Response = await fetchWithAuth(
-        'https://dev.ludimuseo.fr:4000/api/upload',
-        {
-          method: 'POST',
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-          body: formUpload, // Attention : pas de Content-Type ici, FormData le gère
-        }
-      )
+      const response: Response = await fetchWithAuth(`${API_BASE_URL}/upload`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: formUpload, // Attention : pas de Content-Type ici, FormData le gère
+      })
 
       if (!response.ok) {
         throw new Error(`Erreur serveur: ${response.status.toString()}`)
@@ -195,6 +195,17 @@ const FormPiece: FC = () => {
     const selectedValue = e.target.value
     const selectedValueToNumber = Number(selectedValue)
     setSelectedPlaceId(selectedValueToNumber)
+  }
+
+  const handleSelectMedal = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedValue = e.target.value
+    const selectedValueToNumber = Number(selectedValue)
+    setFormData((prev) => {
+      return {
+        ...prev,
+        ['medalId']: selectedValueToNumber,
+      }
+    })
   }
 
   const handleSelectJourney = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -226,7 +237,7 @@ const FormPiece: FC = () => {
     const fetchClients = async () => {
       try {
         const response: Response = await fetchWithAuth(
-          `https://dev.ludimuseo.fr:4000/api/clients/list`,
+          `${API_BASE_URL}/clients/list`,
           {
             method: 'GET',
             headers: {
@@ -257,7 +268,7 @@ const FormPiece: FC = () => {
       if (!selectedClientId) return
       try {
         const response: Response = await fetchWithAuth(
-          `https://dev.ludimuseo.fr:4000/api/places/list/${selectedClientId.toString()}`,
+          `${API_BASE_URL}/places/list/${selectedClientId.toString()}`,
           {
             method: 'GET',
             headers: {
@@ -288,7 +299,7 @@ const FormPiece: FC = () => {
       if (!selectedPlaceId) return
       try {
         const response: Response = await fetchWithAuth(
-          `https://dev.ludimuseo.fr:4000/api/journeys/getAllJourneysByPlaceId/${selectedPlaceId.toString()}`,
+          `${API_BASE_URL}/journeys/getAllJourneysByPlaceId/${selectedPlaceId.toString()}`,
           {
             method: 'GET',
             headers: {
@@ -319,7 +330,7 @@ const FormPiece: FC = () => {
       if (!selectedJourneyId) return
       try {
         const response: Response = await fetchWithAuth(
-          `https://dev.ludimuseo.fr:4000/api/steps/find/${selectedJourneyId.toString()}`,
+          `${API_BASE_URL}/steps/find/${selectedJourneyId.toString()}`,
           {
             method: 'GET',
             headers: {
@@ -345,6 +356,32 @@ const FormPiece: FC = () => {
   }, [selectedJourneyId])
 
   useEffect(() => {
+    const fetchMedals = async () => {
+      try {
+        const response: Response = await fetchWithAuth(
+          `${API_BASE_URL}/medals/list`,
+          {
+            method: 'GET',
+            headers: {
+              'Authorization': `Bearer ${token}`,
+              'Content-Type': 'application/json',
+            },
+          }
+        )
+        if (!response.ok) {
+          throw new Error(`Erreur HTTP: ${String(response.status)}`)
+        }
+        const data = (await response.json()) as MedalType[]
+        const medalData = data
+        setMedal(medalData)
+      } catch (error) {
+        console.log('ERROR fetching clients: ', error)
+      }
+    }
+    void fetchMedals()
+  }, [])
+
+  useEffect(() => {
     setStep(getInput.length)
     setCurrentStep(0)
   }, [getInput])
@@ -360,9 +397,11 @@ const FormPiece: FC = () => {
         client={client}
         place={place}
         journey={journey}
+        medal={medal}
         stepData={steps}
         isAssociated={formData.stepId !== 0}
         handleSelectClient={handleSelectClient}
+        handleSelectMedal={handleSelectMedal}
         handleSelectPlace={handleSelectPlace}
         selectedClientId={selectedClientId}
         selectedPlaceId={selectedPlaceId}
