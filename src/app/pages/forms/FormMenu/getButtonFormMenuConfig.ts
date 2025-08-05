@@ -7,7 +7,13 @@ interface FormMenu {
   route: string
 }
 
-const client = '/src/assets/imgs/formMenu/icone-utilisateur.png'
+import game from '/src/assets/imgs/formMenu/icone-jeux.png'
+import place from '/src/assets/imgs/formMenu/icone-lieu.png'
+import step from '/src/assets/imgs/formMenu/icone-parcours.png'
+import piece from '/src/assets/imgs/formMenu/icone-piece2.png'
+import client from '/src/assets/imgs/formMenu/icone-utilisateur.png'
+import medal from '/src/assets/imgs/formMenu/medaille-loutre.png'
+import journey from '/src/assets/imgs/formMenu/parcours-outdoor.webp'
 
 export const getButtonFormMenuConfig: FormMenu[] = [
   {
@@ -23,7 +29,7 @@ export const getButtonFormMenuConfig: FormMenu[] = [
     title: 'Lieu',
     description: 'Créer un Lieu de type Musée, Parc, Chateau, ou autre...',
     alt: 'formulaire lieu',
-    image: '/src/assets/imgs/formMenu/icone-lieu.png',
+    image: place,
     route: '/form/place',
   },
   {
@@ -31,7 +37,7 @@ export const getButtonFormMenuConfig: FormMenu[] = [
     title: 'Parcours',
     description: 'Créer un parcours lié au lieu',
     alt: 'formulaire parcours',
-    image: '/src/assets/imgs/formMenu/icone-parcours.png',
+    image: journey,
     route: '/form/journey',
   },
   {
@@ -39,7 +45,7 @@ export const getButtonFormMenuConfig: FormMenu[] = [
     title: 'Etape',
     description: 'Créer une étape de parcours',
     alt: 'formulaire étape',
-    image: '/src/assets/imgs/formMenu/icone_etape.png',
+    image: step,
     route: '/form/step',
   },
   {
@@ -47,7 +53,7 @@ export const getButtonFormMenuConfig: FormMenu[] = [
     title: 'Oeuvre',
     description: 'Créer une oeuvre en rapport à une étape',
     alt: 'formulaire oeuvre',
-    image: '',
+    image: piece,
     route: '/form/piece',
   },
   {
@@ -55,7 +61,7 @@ export const getButtonFormMenuConfig: FormMenu[] = [
     title: 'Jeu',
     description: "Créer le quiz de l'étape en ayant l'oeuvre comme thème",
     alt: 'formulaire jeu',
-    image: '/src/assets/imgs/formMenu/icone-jeux.png',
+    image: game,
     route: '/form/game',
   },
   {
@@ -63,7 +69,7 @@ export const getButtonFormMenuConfig: FormMenu[] = [
     title: 'Question (Quiz)',
     description: "Créer le quiz de l'étape en ayant l'oeuvre comme thème",
     alt: 'formulaire question',
-    image: '',
+    image: game,
     route: '/form/question',
   },
   {
@@ -71,7 +77,7 @@ export const getButtonFormMenuConfig: FormMenu[] = [
     title: 'Médaille',
     description: "Créer une Médaille de lieu, de parcours ou d'étape",
     alt: 'formulaire médaille',
-    image: '',
+    image: medal,
     route: '/form/medal',
   },
 ]
