@@ -96,11 +96,7 @@ export interface FormDataType {
   lon: number
   isActive: boolean
   isPublished: boolean
-  [key: string]:
-    | string
-    | boolean
-    | number
-    | { latitude: number; longitude: number }
+  [key: string]: string | boolean | number
 }
 
 export type InputValue = string | boolean | number
