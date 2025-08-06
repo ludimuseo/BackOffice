@@ -10,7 +10,8 @@ interface FormMenu {
 import game from '/src/assets/imgs/formMenu/icone-jeux.png'
 import place from '/src/assets/imgs/formMenu/icone-lieu.png'
 import step from '/src/assets/imgs/formMenu/icone-parcours.png'
-import piece from '/src/assets/imgs/formMenu/icone-piece2.png'
+import piece from '/src/assets/imgs/formMenu/icone-piece.png'
+import question from '/src/assets/imgs/formMenu/icone-quiz.png'
 import client from '/src/assets/imgs/formMenu/icone-utilisateur.png'
 import medal from '/src/assets/imgs/formMenu/medaille-loutre.png'
 import journey from '/src/assets/imgs/formMenu/parcours-outdoor.webp'
@@ -69,7 +70,7 @@ export const getButtonFormMenuConfig: FormMenu[] = [
     title: 'Question (Quiz)',
     description: "Créer le quiz de l'étape en ayant l'oeuvre comme thème",
     alt: 'formulaire question',
-    image: game,
+    image: question,
     route: '/form/question',
   },
   {
